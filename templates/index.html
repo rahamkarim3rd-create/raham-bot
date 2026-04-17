@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Raham Karim's Trading Signal Bot</title>
+</head>
+
+<body>
+
+<h1>Raham Karim's Trading Signal Bot</h1>
+
+<form method="POST">
+
+<label>Select Pair:</label>
+<select name="pair">
+
+{% for p in pairs %}
+<option value="{{p}}">{{p}}</option>
+{% endfor %}
+
+</select>
+
+<br><br>
+
+<label>Select Timeframe:</label>
+<select name="timeframe">
+
+<option>5s</option>
+<option>10s</option>
+<option>15s</option>
+<option>30s</option>
+<option>1m</option>
+<option>5m</option>
+
+</select>
+
+<br><br>
+
+<button type="submit">Generate Signal</button>
+
+</form>
+
+<br><br>
+
+{% if signal %}
+
+<h2>Pair: {{pair}}</h2>
+<h2>Timeframe: {{timeframe}}</h2>
+<h2>Signal: {{signal}}</h2>
+
+{% endif %}
+
+</body>
+</html>

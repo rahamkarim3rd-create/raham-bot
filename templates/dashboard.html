@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Raham Karim Bot</title>
+
+<style>
+body{
+    background: url('https://i.imgur.com/8Km9tLL.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial;
+    color:white;
+    text-align:center;
+}
+
+table{
+    margin:auto;
+    background:rgba(0,0,0,0.7);
+    padding:20px;
+    border-radius:10px;
+}
+
+th,td{
+    padding:10px;
+}
+
+.buy{color:#00ff88;}
+.sell{color:#ff4444;}
+
+button{
+    padding:10px 20px;
+    margin:20px;
+    background:#00c3ff;
+    border:none;
+    color:white;
+    cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>RahamKarim Trading Signal Bot</h1>
+
+<button onclick="location.reload()">Refresh</button>
+
+<table>
+<tr>
+<th>Pair</th>
+<th>Signal</th>
+<th>Accuracy %</th>
+</tr>
+
+{% for pair,signal,acc in data %}
+<tr>
+<td>{{pair}}</td>
+
+{% if signal == "BUY" %}
+<td class="buy">BUY</td>
+{% else %}
+<td class="sell">SELL</td>
+{% endif %}
+
+<td>{{acc}}%</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>
