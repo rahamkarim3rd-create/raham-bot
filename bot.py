@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, session
 import random
+import os
 
 app = Flask(__name__)
 app.secret_key = "rahamkarim"
@@ -34,4 +35,6 @@ def dashboard():
 
     return render_template("dashboard.html", data=data)
 
-# IMPORTANT: NO debug, NO local run settings
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
