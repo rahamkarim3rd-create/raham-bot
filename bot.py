@@ -1,21 +1,14 @@
 from flask import Flask, render_template, request, redirect, session
-import random
 import os
+import random
 
 app = Flask(__name__)
-if __name__ == "__main__":
-    import os
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
 app.secret_key = "rahamkarim"
 
 USERNAME = "RahamKarim"
 PASSWORD = "1144"
 
 pairs = ["EUR/USD","GBP/USD","USD/JPY","AUD/USD","NZD/USD","USD/CAD","USD/CHF"]
-
-def generate_signal():
-    return random.choice(["BUY","SELL"]), random.randint(60,95)
 
 @app.route("/", methods=["GET","POST"])
 def login():
@@ -25,20 +18,22 @@ def login():
             return redirect("/dashboard")
     return render_template("login.html")
 
-@app.route("/dashboard", methods=["GET","POST"])
+@app.route("/dashboard")
 def dashboard():
     if "user" not in session:
         return redirect("/")
 
     data = []
-    for pair in pairs:
-        signal, acc = generate_signal()
-        data.append((pair, signal, acc))
+    for p in pairs:
+        signal = random.choice(["BUY","SELL"])
+        acc = random.randint(60,95)
+        data.append({"pair": p, "signal": signal, "acc": acc})
 
-    data = sorted(data, key=lambda x: x[2], reverse=True)
+    data = sorted(data, key=lambda x: x["acc"], reverse=True)
 
     return render_template("dashboard.html", data=data)
 
+# 🔥 IMPORTANT RAILWAY FIX
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 8080))
     app.run(host="0.0.0.0", port=port)
