@@ -7,14 +7,10 @@ app.secret_key = "rahamkarim"
 USERNAME = "RahamKarim"
 PASSWORD = "1144"
 
-pairs = ["EUR/USD","GBP/USD","USD/JPY","AUD/USD","NZD/USD","USD/CAD","USD/CHF","EUR/JPY","GBP/JPY"]
-
-timeframes = ["5s","10s","15s","30s","1m","5m","15m","30m","1H"]
+pairs = ["EUR/USD","GBP/USD","USD/JPY","AUD/USD","NZD/USD","USD/CAD","USD/CHF"]
 
 def generate_signal():
-    signal = random.choice(["BUY","SELL"])
-    accuracy = random.randint(60,95)
-    return signal, accuracy
+    return random.choice(["BUY","SELL"]), random.randint(60,95)
 
 @app.route("/", methods=["GET","POST"])
 def login():
@@ -24,7 +20,7 @@ def login():
             return redirect("/dashboard")
     return render_template("login.html")
 
-@app.route("/dashboard")
+@app.route("/dashboard", methods=["GET","POST"])
 def dashboard():
     if "user" not in session:
         return redirect("/")
@@ -36,9 +32,6 @@ def dashboard():
 
     data = sorted(data, key=lambda x: x[2], reverse=True)
 
-    return render_template("dashboard.html", data=data, timeframes=timeframes)
+    return render_template("dashboard.html", data=data)
 
-import os
-
-if __name__ == "__main__":
-    app.run()
+# IMPORTANT: NO debug, NO local run settings
